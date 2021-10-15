@@ -17,12 +17,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ZhiHuDailyTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    News()
-                }
-            }
+            DailyApp()
         }
     }
 }
@@ -30,7 +25,5 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    ZhiHuDailyTheme {
-        News()
-    }
+    DailyApp()
 }

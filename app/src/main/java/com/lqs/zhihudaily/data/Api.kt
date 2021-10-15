@@ -1,6 +1,7 @@
 package com.lqs.zhihudaily.data
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * @Description:     java类作用描述
@@ -13,4 +14,14 @@ import retrofit2.http.GET
 interface Api {
     @GET("news/latest")
     suspend fun getLatest(): NewsBean
+
+    @GET("news/before/{date}")
+    suspend fun getNewsByDate(
+        @Path("date") date: String
+    ): NewsBean
+
+    @GET("news/{id}")
+    suspend fun getDetaily(
+        @Path("id") id: String
+    ): DetailyBean
 }

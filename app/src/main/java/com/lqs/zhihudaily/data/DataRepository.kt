@@ -31,4 +31,12 @@ object DataRepository : Api {
     override suspend fun getLatest(): NewsBean {
         return api.getLatest()
     }
+
+    override suspend fun getNewsByDate(date: String): NewsBean {
+        return api.getNewsByDate(date = date)
+    }
+
+    override suspend fun getDetaily(id: String): DetailyBean {
+        return api.getDetaily(id)
+    }
 }

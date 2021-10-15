@@ -22,8 +22,10 @@ import kotlin.collections.HashMap
  */
 class NewsViewModel : ViewModel() {
 
+
     val dateSequence by lazy {
         val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
         (0..365).map {
             calendar.add(Calendar.DAY_OF_MONTH, -1)
             calendar.time
@@ -34,7 +36,7 @@ class NewsViewModel : ViewModel() {
         MutableLiveData<NewsBean>()
     }
 
-    val news: LiveData<NewsBean> = _news
+    val currentNews: LiveData<NewsBean> = _news
 
     private val _selectDate = MutableLiveData(Date().dateStr)
     val selectDate: LiveData<String> = _selectDate
@@ -54,11 +56,18 @@ class NewsViewModel : ViewModel() {
                     mNewsBeanMap[dateStr] = latest
                     _news.postValue(latest)
                 } else {
-
+                    val newsByDate = DataRepository.getNewsByDate(date = dateStr.replace("-", ""))
+                    mNewsBeanMap[dateStr] = newsByDate
+                    _news.postValue(newsByDate)
                 }
             }
         } else {
             _news.postValue(news)
         }
     }
+
+    init {
+        getNews(Date())
+    }
+
 }
